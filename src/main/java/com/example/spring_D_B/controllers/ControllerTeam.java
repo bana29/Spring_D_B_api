@@ -3,27 +3,27 @@ package com.example.spring_D_B.controllers;
 import com.example.spring_D_B.entities.ResponseTeam;
 import com.example.spring_D_B.entities.Team;
 import com.example.spring_D_B.helpers.Constante;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-@RestController
+import static java.util.logging.Logger.getLogger;
 
+
+@RestController
 public class ControllerTeam {
+    Logger logger = LoggerFactory.getLogger(ControllerTeam.class);
+
+
+
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
@@ -34,15 +34,21 @@ public class ControllerTeam {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         headers.set("X-Auth-Token",Constante.API_TOKEN);
         HttpEntity <String> entity = new HttpEntity<String>(headers);
+        ResponseEntity<String> statut= restTemplate().exchange(Constante.API_URL, HttpMethod.GET, entity, String.class);
         ResponseTeam response = restTemplate().exchange(Constante.API_URL, HttpMethod.GET, entity, ResponseTeam.class).getBody();
         List<Team> teams= response.getTeams().stream().map(
                 it->{
                     return new Team(it.getId(),it.getName(),it.getTla());
                 }
         ).collect(Collectors.toList());
-
+        logger.info("teams: " +teams);
+        logger.info("statut: " +statut.getStatusCodeValue());
+        logger.info("number team: " +teams.size());
+        logger.info("response api: " +response);
 
         return teams;
+
+
 
     }
 

@@ -1,7 +1,9 @@
 package com.example.spring_D_B.entities;
 
-import java.util.ArrayList;
+import lombok.ToString;
 
+import java.util.ArrayList;
+@ToString
 public class Team {
     int id;
     String name;
