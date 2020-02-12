@@ -7,11 +7,13 @@ public class ResponseTeam {
     String name;
     String tla;
     ArrayList<ResponseTeam> teams;
+    int founded ;
 
-    public ResponseTeam(int id, String name, String tla) {
+    public ResponseTeam(int id, String name, String tla,int founded) {
         this.id = id;
         this.name = name;
         this.tla = tla;
+        this.founded = founded;
     }
 
     public ResponseTeam() {
@@ -47,5 +49,12 @@ public class ResponseTeam {
 
     public void setTeams(ArrayList<ResponseTeam> teams) {
         this.teams = teams;
+    }
+    public int getFounded() {
+        return founded;
+    }
+
+    public void setFounded(int founded) {
+        this.founded = founded;
     }
 }

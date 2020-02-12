@@ -8,11 +8,13 @@ public class Team {
     int id;
     String name;
     String tla;
+    int founded;
 
-    public Team(int id, String name, String tla) {
+    public Team(int id, String name, String tla, int founded) {
         this.id = id;
         this.name = name;
         this.tla = tla;
+        this.founded = founded;
     }
 
     public Team() {
@@ -40,5 +42,13 @@ public class Team {
 
     public void setTla(String tla) {
         this.tla = tla;
+    }
+
+    public int getFounded() {
+        return founded;
+    }
+
+    public void setFounded(int founded) {
+        this.founded = founded;
     }
 }
